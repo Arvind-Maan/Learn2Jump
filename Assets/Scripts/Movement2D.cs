@@ -6,6 +6,7 @@ public class Movement2D : MonoBehaviour {
     public float moveSpeed = 5f;
     public float jumpHeight = 5f;
     public bool isGrounded;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +18,8 @@ public class Movement2D : MonoBehaviour {
     {
         Jump();
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+        animator.SetFloat("Speed", Mathf.Abs(move.x*moveSpeed));
         transform.position += move * Time.deltaTime * moveSpeed;
-        
     }
 
     void Jump()
