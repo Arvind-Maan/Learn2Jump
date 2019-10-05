@@ -7,9 +7,11 @@ public class Movement2D : MonoBehaviour {
     public float jumpHeight = 5f;
     public bool isGrounded;
     public Animator animator;
+    SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         isGrounded = true;
     }
 
@@ -18,8 +20,13 @@ public class Movement2D : MonoBehaviour {
     {
         Jump();
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        animator.SetFloat("Speed", Mathf.Abs(move.x*moveSpeed));
+        animator.SetFloat("Speed", Mathf.Abs(move.x * moveSpeed));
         transform.position += move * Time.deltaTime * moveSpeed;
+
+        if (move.x < 0)
+            spriteRenderer.flipX = true;
+        else if (move.x > 0)
+            spriteRenderer.flipX = false;
     }
 
     void Jump()
