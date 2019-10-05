@@ -6,6 +6,7 @@ public class Movement2D : MonoBehaviour {
     public float moveSpeed = 5f;
     public float jumpHeight = 5f;
     public bool isGrounded;
+    public bool isBlocking;
     public Animator animator;
     SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
@@ -31,8 +32,23 @@ public class Movement2D : MonoBehaviour {
 
     void Jump()
     {
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
+    }
+
+    void Block()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        {
+            animator.SetBool("isBlocking", true);
+            isBlocking = true;
+        }
+        else
+        {
+            animator.SetBool("isBlocking", false);
+            isBlocking = false;
+        }
+
     }
 
 
