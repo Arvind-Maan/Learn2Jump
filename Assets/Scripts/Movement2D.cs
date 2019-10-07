@@ -40,14 +40,15 @@ public class Movement2D : MonoBehaviour {
 
     void Act()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        //the key inputs that the player can respond to
+        if (Input.GetButtonDown("Jump") && isGrounded) //jump
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) //block
             isBlocking = true;
-        else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Z))
+        else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Z)) // attack
             isAttacking = true;
         else
-        {
+        { 
             isBlocking = false;
             isAttacking = false;
         }
