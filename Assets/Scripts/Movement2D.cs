@@ -7,6 +7,7 @@ public class Movement2D : MonoBehaviour {
     public float jumpHeight = 5f;
     public bool isGrounded;
     public bool isBlocking;
+    public bool isAttacking;
     public Animator animator;
     SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
@@ -14,8 +15,7 @@ public class Movement2D : MonoBehaviour {
     {
         //initialize variables;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        isGrounded = true;
-        isBlocking = true;
+        isGrounded = isBlocking = isAttacking = true;
         animator = GetComponent<Animator>();
     }
 
@@ -23,8 +23,7 @@ public class Movement2D : MonoBehaviour {
     void Update()
     {
         //check for any actions
-        Jump();
-        Block();
+        Act();
         //movement
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
         //tell the animator we are moving
@@ -39,21 +38,22 @@ public class Movement2D : MonoBehaviour {
             spriteRenderer.flipX = false;
     } //end of update
 
-    void Jump()
+    void Act()
     {
         if (Input.GetButtonDown("Jump") && isGrounded)
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
-    } //end of jump
-
-    void Block()
-    {
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             isBlocking = true;
+        else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Z))
+            isAttacking = true;
         else
+        {
             isBlocking = false;
+            isAttacking = false;
+        }
+        animator.SetBool("Attack", isAttacking);
         animator.SetBool("Block", isBlocking);
-    } //end of block
-
+    } //end of act
 
 
     private void OnCollisionEnter2D(Collision2D collision)
