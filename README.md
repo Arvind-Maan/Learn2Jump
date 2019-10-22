@@ -6,4 +6,4 @@ A platformer game designed in unity and C#, ironically named Learn2Jump as one o
 
 Above is an image of our hero.
 
-Future plans for this project will be to create most levels and enemies.
+Future plans for this project will be to create more levels and add functional enemies with decent AI!
