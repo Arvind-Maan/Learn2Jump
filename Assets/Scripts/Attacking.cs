@@ -20,4 +20,12 @@ public class Attacking : MonoBehaviour
         else
             collider.enabled = false;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player") {
+            collision.gameObject.GetComponent<EnemyScript>().die();
+        }
+    }
+
 }
